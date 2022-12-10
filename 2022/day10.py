@@ -19,8 +19,6 @@ for line in List:
         for _ in range(2):
             tick()
         X += int(line[1])
-    elif line[0] == "noop":
+    else:
         tick()
-List.close()
-
 print(sigSum)
