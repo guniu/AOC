@@ -7,17 +7,11 @@ cycle = 0
 sigSum = 0
 X = 1
 
-def drawPixel():
-    pixel = '#' if abs(X-(cycle-1)%40) <= 1 else '.'
-    print(pixel, end="")
-    if cycle % 40 == 0:
-        print()
-
 def tick():
     global cycle, sigSum
     cycle += 1
     if cycle in Cycles: sigSum += X*cycle
-    drawPixel()
+    print('#' if abs(X-(cycle-1)%40) <= 1 else '.', end='' if cycle%40 else '\n')
 
 for line in List:
     line = line.split()
