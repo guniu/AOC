@@ -3,18 +3,16 @@
 List = open("E:\\Temp\\input12.txt").read().splitlines()
 
 Nodes = []
-S = None
-E = None
+S = ['a', -1, []]
+E = ['z', 0, []]
 Q = []
 
 for row in List:
     Nodes.append([])
     for n in row:
         if n == 'S':
-            S = ['a', -1, []]
             Nodes[-1].append(S)
         elif n == 'E':
-            E = ['z', 0, []]
             Nodes[-1].append(E)
         else:
             Nodes[-1].append([n, -1, []])
@@ -35,10 +33,9 @@ def extractClosestNode():
     smallest = -1
     index    = -1
     for i in range(len(Q)):
-        if Q[i][1] != -1:
-            if smallest == -1 or Q[i][1] < smallest:
-                smallest = Q[i][1]
-                index = i
+        if Q[i][1] != -1 and (smallest == -1 or Q[i][1] < smallest):
+            smallest = Q[i][1]
+            index = i
     return Q.pop(index)
 
 while Q:  # S[1] == -1:
