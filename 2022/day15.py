@@ -16,7 +16,6 @@ def get_Y_ranges(Y):
         if dist_to_B >= dist_to_Y:
             r = dist_to_B - dist_to_Y
             Y_ranges.append([s[0]-r, s[0]+r])
-            if dist_to_Y == 0: exclude.add(s[0])
             if s[3] == Y:      exclude.add(s[2])
     return sorted(Y_ranges)
 
