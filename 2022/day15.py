@@ -2,16 +2,16 @@
 
 List = open("E:\\Temp\\input15.txt").read().splitlines()
 for i in range(len(List)):
-    line = List[i].replace('Sensor at x=', '')
-    line = line.replace(', y=', ' ')
-    line = line.replace(': closest beacon is at x=', ' ')
-    List[i] = list(map(int, line.split()))
+    line = List[i].replace('=', ' ').replace(',', '').replace(':', '').split()
+    line = [int(line[3]), int(line[5]), int(line[11]), int(line[13])]
+    line.append(abs(line[0]-line[2])+abs(line[1]-line[3]))
+    List[i] = line
 
 exclude = set()
 def get_Y_ranges(Y):
     Y_ranges = []
     for s in List:
-        dist_to_B = abs(s[0]-s[2])+abs(s[1]-s[3])
+        dist_to_B = s[4]
         dist_to_Y = abs(s[1]-Y)
         if dist_to_B >= dist_to_Y:
             r = dist_to_B - dist_to_Y
@@ -42,7 +42,7 @@ print('part 1:', pos-len(exclude))
 
 MAX = 4000000
 div = MAX//100
-for Y in range(0, MAX+1):
+for Y in range(MAX+1):
     if Y % div == 0: print('Searching:', Y//div, '%')
     X = get_X_gap(get_Y_ranges(Y))
     if X <= MAX:
