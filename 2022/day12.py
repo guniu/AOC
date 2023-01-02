@@ -1,11 +1,10 @@
 # https://adventofcode.com/2022/day/12
 
-List = open("E:\\Temp\\input12.txt").read().splitlines()
+List = open("E:\\Temp\\input12.txt")
 
 Nodes = []
 S = ['a', -1, []]
 E = ['z', 0, []]
-Q = []
 
 for row in List:
     Nodes.append([])
@@ -16,7 +15,6 @@ for row in List:
             Nodes[-1].append(E)
         else:
             Nodes[-1].append([n, -1, []])
-    Q.extend(Nodes[-1])
 
 def addValidNode(cNode, aNode):
     if ord(cNode[0]) - ord(aNode[0]) <= 1:
@@ -29,22 +27,13 @@ for r in range(len(Nodes)):
         if c > 0:               addValidNode(Nodes[r][c], Nodes[r][c-1])
         if c < len(Nodes[r])-1: addValidNode(Nodes[r][c], Nodes[r][c+1])
 
-def extractClosestNode():
-    smallest = -1
-    index    = -1
-    for i in range(len(Q)):
-        if Q[i][1] != -1 and (smallest == -1 or Q[i][1] < smallest):
-            smallest = Q[i][1]
-            index = i
-    return Q.pop(index)
-
-while Q:  # S[1] == -1:
-    node = extractClosestNode()
-    if node[1] == -1: break
+Q = [E]
+while Q:
+    node = Q.pop(0)
     for p in node[2]:
-        # if p in Q:  # "recursion depth exceeded in comparison"
-        if p[1] == -1:  # or node[1]+1 < p[1]:
+        if p[1] == -1:
             p[1] = node[1]+1
+            Q.append(p)
 
 print(S[1])
 
