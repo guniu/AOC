@@ -9,6 +9,7 @@ class Valve:
         self.name = name
         self.flow = flow
         self.nbr  = nbr
+        self.dist = set()
         if flow:
             self.state = Valve.state
             Valve.state <<= 1
@@ -30,7 +31,6 @@ for v in V.values():
     if v.flow: FV.append(v)
 
 for fv in FV:
-    fv.dist = set()
     Q = [(fv, 0)]
     P = {fv}
     while Q:
