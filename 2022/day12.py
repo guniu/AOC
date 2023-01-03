@@ -1,20 +1,12 @@
 # https://adventofcode.com/2022/day/12
 
-List = open("E:\\Temp\\input12.txt")
+List = open("E:\\Temp\\input12.txt").read().splitlines()
 
-Nodes = []
 S = ['a', -1, []]
 E = ['z', 0, []]
+N = {'S': S, 'E': E}
 
-for row in List:
-    Nodes.append([])
-    for n in row:
-        if n == 'S':
-            Nodes[-1].append(S)
-        elif n == 'E':
-            Nodes[-1].append(E)
-        else:
-            Nodes[-1].append([n, -1, []])
+Nodes = [[N.get(n, [n, -1, []]) for n in row] for row in List]
 
 def addValidNode(cNode, aNode):
     if ord(cNode[0]) - ord(aNode[0]) <= 1:
