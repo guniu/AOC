@@ -17,8 +17,7 @@ for line in file:
     for i in range(0, len(c), 2):
         if Cubes[c[i+1]] < int(c[i]):
             gameID = 0
-        if int(c[i]) > P.get(c[i+1], 0):
-            P[c[i+1]] = int(c[i])
+        P[c[i+1]] = max(int(c[i]), P.get(c[i+1], 0))
 
     IDsum += gameID
     k = 1
