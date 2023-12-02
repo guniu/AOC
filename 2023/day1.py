@@ -10,7 +10,7 @@ def append(line, d, k, v):
     if k in line:
         d.append((line.find(k), v))
         if line.count(k) > 1:
-            d.append((len(line)-line[::-1].find(k[::-1])-len(k), v))
+            d.append((line.rfind(k), v))
 
 num = []
 num2 = []
