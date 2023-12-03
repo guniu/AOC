@@ -1,7 +1,7 @@
 # ==================================================
 # https://adventofcode.com/2023/day/2
 
-file = open("E:\\Temp\\AOC2023\\day2.txt").read().splitlines()
+file = open("day2.txt").read().splitlines()
 
 Cubes = {'red': 12, 'green': 13, 'blue': 14}
 
