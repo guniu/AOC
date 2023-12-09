@@ -8,21 +8,19 @@ History = [list(map(int, line.split())) for line in file]
 Next = []
 Prev = []
 
-def get_diff(seq):
-    return [y-x for x, y in zip(seq, seq[1:])]
-
 for seq in History:
     Diff = []
     while any(seq):
         Diff.append(seq)
-        seq = get_diff(seq)
+        seq = [y-x for x, y in zip(seq, seq[1:])]
 
-    Next.append(sum(x[-1] for x in Diff))
-
-    s = 0
+    s1 = 0
+    s2 = 0
     for x in Diff[::-1]:
-        s = x[0] - s
-    Prev.append(s)
+        s1 += x[-1]
+        s2 = x[0] - s2
+    Next.append(s1)
+    Prev.append(s2)
 
 print(sum(Next))
 print(sum(Prev))
