@@ -8,7 +8,6 @@ for r, line in enumerate(Pipes):
         S = [r, c]
         break
 
-Loop = [S]
 P = {'|': 'ns', '-': 'ew', 'L': 'ne', 'J': 'nw', '7': 'sw', 'F': 'se', '.': ''}
 
 def Dir(r, c):
@@ -33,8 +32,18 @@ if 'e' in Dir(S[0], S[1]-1):
     D.append(['e'])
     P['S'] = P.get('S', '')+'w'
 
+def add_Loop(c, d):
+    if d == 'ns':
+        Loop.append(c+[1])
+    elif 'n' in d:
+        Loop.append(c+[2])
+    elif 's' in d:
+        Loop.append(c+[3])
+
 def next_pipe(c, d):
-    go = Dir(c[0], c[1]).replace(d[0], '')
+    go = Dir(c[0], c[1])
+    add_Loop(c, go)
+    go = go.replace(d[0], '')
     if go == 'n':
         c[0] -= 1
         d[0] = 's'
@@ -48,34 +57,35 @@ def next_pipe(c, d):
         c[1] -= 1
         d[0] = 'e'
 
+Loop = []
 i = 1
 while C[0] != C[1]:
-    Loop.append(C[0].copy())
-    Loop.append(C[1].copy())
     next_pipe(C[0], D[0])
     next_pipe(C[1], D[1])
     i += 1
-Loop.append(C[0].copy())
 print(i)
 
-i = 0
+add_Loop(C[0], Dir(C[0][0], C[0][1]))
+add_Loop(S, P['S'])
+Loop.sort()
+
 IN = False
-A = ''
-for r in range(len(Pipes)):
-    for c, p in enumerate(Pipes[r]):
-        if [r, c] in Loop:
-            if 'n' in P[p]:
-                if A == 's':
-                    IN = not IN
-                    A = ''
-                elif A: A = ''
-                else: A = 'n'
-            if 's' in P[p]:
-                if A == 'n':
-                    IN = not IN
-                    A = ''
-                elif A: A = ''
-                else: A = 's'
-        elif IN:
-            i += 1
+s = 0
+x = 0
+i = 0
+for p in Loop:
+    if IN and not s:
+        i += p[1]-x-1
+
+    if p[2] == 1:
+        IN = not IN
+    elif s and s != p[2]:
+        IN = not IN
+        s = 0
+    elif s == p[2]:
+        s = 0
+    else:
+        s = p[2]
+
+    if IN: x = p[1]
 print(i)
