@@ -87,5 +87,5 @@ for p in Loop:
     else:
         s = p[2]
 
-    if IN: x = p[1]
+    if IN and not s: x = p[1]
 print(i)
