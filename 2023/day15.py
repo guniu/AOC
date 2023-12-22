@@ -17,12 +17,12 @@ for step in file:
     label, fl = step.replace('=', '-').split('-')
     box = hush(label)
 
-    if Boxes.get(box) is None:
+    if box not in Boxes:
         if fl: Boxes[box] = {label: int(fl)}
     elif fl:
         Boxes[box][label] = int(fl)
-    elif Boxes[box].get(label) is not None:
-        Boxes[box].pop(label)
+    elif label in Boxes[box]:
+        del Boxes[box][label]
 
 print(p1)
 
