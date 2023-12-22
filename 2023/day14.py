@@ -18,7 +18,7 @@ def calc_load(file):
 
 def same_state(file, c):
     h = hash(tuple(file))
-    if States.get(h) is None:
+    if h not in States:
         States[h] = c
     elif (10**9 - c) % (c - States[h]) == 0:
         return True
