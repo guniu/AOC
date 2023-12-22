@@ -24,8 +24,8 @@ def isValid(r, c, d, P):
     return False
 
 def run_beam(sr, sc, sd):
-    P = {(sr, sc, abs(sd[0]))}
     Q = [(sr, sc, sd)]
+    P = {(sr, sc, abs(sd[0]))}
     while Q:
         r, c, d = Q.pop(0)
         s = file[r][c]
@@ -35,7 +35,7 @@ def run_beam(sr, sc, sd):
                     Q.append((r+nd[0], c+nd[1], nd))
         elif isValid(r, c, d, P):
             Q.append((r+d[0], c+d[1], d))
-    return len({(f[0], f[1]) for f in P})
+    return len({f[:2] for f in P})
 
 max_en = 0
 for r in range(len(file)):
@@ -43,6 +43,7 @@ for r in range(len(file)):
     if r == 0: print(en1)
     en2 = run_beam(r, len(file[r])-1, lt)
     max_en = max(max_en, en1, en2)
+
 for c in range(len(file[0])):
     en1 = run_beam(0, c, dn)
     en2 = run_beam(len(file)-1, c, up)
