@@ -14,9 +14,8 @@ def IsCorrect(upd):
             if upd[i]+'|'+upd[i+1] not in Orders:
                 upd[i], upd[i+1] = upd[i+1], upd[i]
                 not_swapped = False
-        if not_swapped: break
+        if not_swapped: return good
         good = False
-    return good
 
 s1 = 0
 s2 = 0
