@@ -15,21 +15,24 @@ for r in range(len(file)):
         O.add((r, c))
         c = file[r].find('#', c+1)
 
-RLen = len(file)-1
-CLen = len(file[0])-1
-
 def ChangeDir(d):
     if d[0] != 0:
         return (0, -d[0])
     else:
         return (d[1], 0)
 
+RLen = len(file)
+CLen = len(file[0])
+
 def GetPath(O, p2=False):
     r = sR
     c = sC
     d = (-1, 0)
-    P = {(r, c, d)}
-    while 0 < r < RLen and 0 < c < CLen:
+    P = set()
+    while -1 < r < RLen and -1 < c < CLen:
+        if (r, c, d) in P:
+            return 1
+        P.add((r, c, d))
         tr = r+d[0]
         tc = c+d[1]
         if (tr, tc) in O:
@@ -37,9 +40,6 @@ def GetPath(O, p2=False):
         else:
             r = tr
             c = tc
-        if (r, c, d) in P:
-            return 1
-        P.add((r, c, d))
     if p2: return 0
     return {p[:2] for p in P}
 
