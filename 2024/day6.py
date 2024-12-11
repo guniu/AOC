@@ -28,7 +28,7 @@ def GetPath(O, p2=False):
     r = sR
     c = sC
     d = (-1, 0)
-    P = {((r, c), d)}
+    P = {(r, c, d)}
     while 0 < r < RLen and 0 < c < CLen:
         tr = r+d[0]
         tc = c+d[1]
@@ -37,11 +37,11 @@ def GetPath(O, p2=False):
         else:
             r = tr
             c = tc
-        if ((r, c), d) in P:
+        if (r, c, d) in P:
             return 1
-        P.add(((r, c), d))
+        P.add((r, c, d))
     if p2: return 0
-    return {p[0] for p in P}
+    return {p[:2] for p in P}
 
 P = GetPath(O)
 print(len(P))
