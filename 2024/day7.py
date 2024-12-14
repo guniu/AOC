@@ -3,35 +3,27 @@
 
 file = open("day7.txt").read().splitlines()
 
-def TestEquation(test, nums):
-    op = len(nums)-1
-    for c in range(2**op):
-        for p in range(2**op):
-            if c & p: continue
-            eq = nums[0]
-            b = 1 << (op-1)
-            for num in nums[1:]:
-                if c & b:
-                    eq = int(f'{eq}{num}')
-                elif p & b:
-                    eq *= num
-                else:
-                    eq += num
-                b >>= 1
-            if eq == test: return c
-    return -1
+def TestEq(t, n):
+    if len(n) == 1: return t == n[0]
+    r = TestEq(t, (n[0]+n[1],)+n[2:])
+    if r: return r
+    r = TestEq(t, (n[0]*n[1],)+n[2:])
+    if r: return r
+    if TestEq(t, (int(f'{n[0]}{n[1]}'),)+n[2:]):
+        return 2
+    return False
 
 p1 = 0
 p2 = 0
 for line in file:
-    line = line.replace(':', '').split()
-    test = int(line[0])
-    nums = list(map(int, line[1:]))
-    c = TestEquation(test, nums)
-    if c == 0:
-        p1 += test
+    test, nums = line.split(': ')
+    test = int(test)
+    nums = tuple(map(int, nums.split()))
+    r = TestEq(test, nums)
+    if r == 2:
         p2 += test
-    elif c > 0:
+    elif r:
+        p1 += test
         p2 += test
 
 print(p1, p2)
