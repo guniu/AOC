@@ -5,11 +5,12 @@ file = open("day7.txt").read().splitlines()
 
 def TestEq(t, n):
     if len(n) == 1: return t == n[0]
-    r = TestEq(t, (n[0]+n[1],)+n[2:])
+    r = TestEq(t-n[-1], n[:-1])
     if r: return r
-    r = TestEq(t, (n[0]*n[1],)+n[2:])
+    r = t % n[-1] == 0 and TestEq(t//n[-1], n[:-1])
     if r: return r
-    if TestEq(t, (int(f'{n[0]}{n[1]}'),)+n[2:]):
+    s = 10**len(str(n[-1]))
+    if t % s == n[-1] and TestEq(t//s, n[:-1]):
         return 2
     return False
 
