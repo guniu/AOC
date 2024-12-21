@@ -40,8 +40,7 @@ def GetPath(O, p2=False):
         else:
             r = tr
             c = tc
-    if p2: return 0
-    return {p[:2] for p in P}
+    return 0 if p2 else {p[:2] for p in P}
 
 P = GetPath(O)
 print(len(P))
