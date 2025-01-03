@@ -23,6 +23,7 @@ for f in disk[backID*2::-2]:
         while eID < backID and empty1[eID] == 0:
             eID += 1
             p1 += disk[eID*2]
+
         if eID < backID:
             k = min(empty1[eID], b)
             empty1[eID] -= k
@@ -38,6 +39,7 @@ for f in disk[backID*2::-2]:
                 p1 -= disk[backID*2+1]
             k = -b
             b = 0
+
         for p1 in range(p1, p1+k, step):
             s1 += p1 * backID
         p1 += step
@@ -45,7 +47,7 @@ for f in disk[backID*2::-2]:
     for i in range(I[f], backID):
         if empty2[i] >= f:
             I[f] = i
-            p2 = S[i*2+1] + disk[i*2+1] - empty2[i]
+            p2 = S[i*2+2] - empty2[i]
             empty2[i] -= f
             break
     else:
