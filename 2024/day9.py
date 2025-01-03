@@ -14,7 +14,7 @@ s1 = 0
 
 empty2 = disk[1::2]
 I = {f: 0 for f in range(1, 10)}
-S = [p2 := 0] + [p2 := p2+b for b in disk[:-1]]
+S = [p := 0] + [p := p+b for b in disk[:-1]]
 s2 = 0
 
 for f in disk[backID*2::-2]:
