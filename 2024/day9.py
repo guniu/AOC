@@ -33,9 +33,9 @@ for f in disk[backID*2::-2]:
                     p1 -= disk[backID*2+1]-empty1[backID]+1
                 else:
                     p1 -= f-b+1
+                step = -1
             else:
                 p1 -= disk[backID*2+1]
-            step = -1
             k = -b
             b = 0
         for p1 in range(p1, p1+k, step):
