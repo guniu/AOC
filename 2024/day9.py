@@ -5,14 +5,14 @@ file = open("day9.txt").read().strip()
 disk = list(map(int, file))
 
 backID = (len(disk)-1)//2
-S = [p := 0] + [p := p+b for b in disk]
+Pos = [p := 0] + [p := p+b for b in disk]
 
 empty1 = disk[1::2]
 eID = 0
 s1 = 0
 
 empty2 = disk[1::2]
-I = [0]*10
+Idx = [0]*10
 s2 = 0
 
 for f in disk[backID*2::-2]:
@@ -22,25 +22,25 @@ for f in disk[backID*2::-2]:
             eID += 1
 
         if eID < backID:
-            p1 = S[eID*2+2] - empty1[eID]
+            p1 = Pos[eID*2+2] - empty1[eID]
             k = min(empty1[eID], b)
             empty1[eID] -= k
             b -= k
         else:
-            p1 = S[backID*2]
+            p1 = Pos[backID*2]
             k = b
             b = 0
 
         s1 += (2*p1 + k-1) * k // 2 * backID
 
-    for i in range(I[f], backID):
+    for i in range(Idx[f], backID):
         if empty2[i] >= f:
-            I[f] = i
-            p2 = S[i*2+2] - empty2[i]
+            Idx[f] = i
+            p2 = Pos[i*2+2] - empty2[i]
             empty2[i] -= f
             break
     else:
-        p2 = S[backID*2]
+        p2 = Pos[backID*2]
 
     s2 += (2*p2 + f-1) * f // 2 * backID
 
