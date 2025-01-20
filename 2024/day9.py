@@ -31,7 +31,7 @@ for f in disk[backID*2::-2]:
             b = 0
         s1 += (2*p1 + k-1) * k // 2 * backID
 
-    for i in range(Idx[f], backID):
+    for i in range(max(Idx[:f+1]), backID):
         if empty2[i] >= f:
             Idx[f] = i
             p2 = Pos[i*2+2] - empty2[i]
